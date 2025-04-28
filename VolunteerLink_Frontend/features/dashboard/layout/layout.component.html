@@ -1,0 +1,89 @@
+<header class="app-header">
+    <div class="layout-limiter header-content">
+  
+      <h1 class="app-logo">
+          <a [routerLink]="isLoggedIn ? '/app/events' : '/' ">VolunteerLink</a>
+      </h1>
+  
+      <div class="header-nav-actions">
+          <nav class="main-navigation" *ngIf="isLoggedIn">
+              <ul>
+                  <li>
+                      <a routerLink=" " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                  </li>
+                  <li>
+                      <a routerLink="/app/events" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">Events</a>
+                  </li>
+                  <li *ngIf="isVolunteer"><a routerLink="/app/volunteer/my-events" routerLinkActive="active">My Events</a></li>
+                  <li *ngIf="isAdmin"><a routerLink="/app/admin/manage-events" routerLinkActive="active">Manage Events</a></li>
+                  <li *ngIf="isAdmin"><a routerLink="/app/admin/reports" routerLinkActive="active">Reports</a></li>
+                  <li *ngIf="userId"><a routerLink="/app/profile" routerLinkActive="active">My Profile</a></li>
+              </ul>
+          </nav>
+  
+          <!-- ***** SEARCH BAR RE-INTEGRATED ***** -->
+          <!-- Show only for logged-in VOLUNTEERS -->
+          <div class="event-search-container" *ngIf="isLoggedIn && isVolunteer">
+              <form class="event-search-form" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+                  <input type="text" placeholder="Location..." formControlName="location" aria-label="Search by location">
+                  <input type="date" formControlName="date" aria-label="Search by date">
+                  <button type="submit" class="search-button" title="Search Events">
+                       <i class="icon-placeholder bi bi-search">🔍</i>
+                  </button>
+              </form>
+          </div>
+          <!-- ***** END SEARCH BAR SECTION ***** -->
+  
+  
+          <!-- Auth/User Actions (Aligned Right) -->
+          <div class="auth-actions">
+              <ng-container *ngIf="isLoggedIn">
+                  <span class="user-greeting" *ngIf="userName">Hi, {{ userName }}</span>
+                  <button class="nav-button logout-button" (click)="logout()">Logout</button>
+              </ng-container>
+  
+              <ng-container *ngIf="!isLoggedIn">
+                  <a routerLink="/auth/login" class="nav-button login-button">Login</a>
+                  <a routerLink="/auth/register" class="nav-button register-button">Register</a>
+              </ng-container>
+          </div>
+      </div> <!-- End header-nav-actions -->
+  
+    </div> <!-- End layout-limiter header-content -->
+  </header>
+  
+  <main class="main-content-area">
+    <router-outlet></router-outlet>
+  </main>
+  
+  <footer class="app-footer">
+      <!-- Footer content... -->
+      <div class="layout-limiter">
+          <div class="footer-layout-grid">
+              <div class="footer-info-column">
+                  <h5>About VolunteerLink</h5>
+                  <p>Connecting communities through volunteering.</p>
+              </div>
+              <div class="footer-links-column">
+                  <h5>Quick Links</h5>
+                  <ul class="footer-nav-links">
+                      <li><a [routerLink]="isLoggedIn ? '/app/events' : '/' ">Home/Events</a></li>
+                      <li><a routerLink="/auth/register">Register</a></li>
+                      <li *ngIf="isLoggedIn"><a routerLink="/app/profile">My Profile</a></li>
+                      <li><a href="#">Contact Us</a></li>
+                  </ul>
+              </div>
+              <div class="footer-social-column">
+                  <h5>Connect</h5>
+                  <div class="footer-social-icons">
+                      <a href="#" aria-label="Facebook"><i class="icon-placeholder bi bi-facebook"></i></a>
+                      <a href="#" aria-label="Twitter"><i class="icon-placeholder bi bi-twitter"></i></a>
+                      <a href="#" aria-label="Instagram"><i class="icon-placeholder bi bi-instagram"></i></a>
+                  </div>
+              </div>
+          </div>
+          <div class="footer-copyright">
+              <p>© 2024 VolunteerLink System. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>

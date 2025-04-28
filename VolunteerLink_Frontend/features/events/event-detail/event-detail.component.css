@@ -1,0 +1,178 @@
+/* Event Details Container */
+.detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* Back Button */
+  .action-button.cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 2rem;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .action-button.cancel:hover {
+    background-color: var(--medium-gray);
+  }
+  
+  /* Event Header */
+  .detail-container h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+  }
+  
+  /* Event Details */
+  .detail-container p {
+    margin: 1rem 0;
+    line-height: 1.6;
+    color: var(--text-color);
+  }
+  
+  .detail-container p strong {
+    color: var(--dark-gray);
+    font-weight: 600;
+    min-width: 150px;
+    display: inline-block;
+  }
+  
+  /* Description Formatting */
+  .detail-container p[style*="white-space: pre-wrap"] {
+    background-color: rgba(236, 240, 241, 0.3);
+    padding: 1.5rem;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-color);
+    margin: 1.5rem 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  /* Organizer Link Button */
+  .link-button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: var(--transition);
+  }
+  
+  .link-button:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+  
+  /* Actions Section */
+  .detail-container .actions {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--light-gray);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .detail-container .action-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+  }
+  
+  .detail-container .action-button:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  .detail-container .action-button:disabled {
+    background-color: var(--medium-gray);
+    cursor: not-allowed;
+  }
+  
+  .detail-container .actions a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .detail-container .actions a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Status Messages */
+  .detail-container .loading-message,
+  .detail-container .success-message,
+  .detail-container .error-message {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+  }
+  
+  .detail-container .success-message a {
+    color: var(--white);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  
+  .detail-container .success-message a:hover {
+    text-decoration: none;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .detail-container {
+      padding: 0 1rem;
+    }
+    
+    .detail-container h2 {
+      font-size: 1.75rem;
+    }
+    
+    .detail-container p strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .detail-container .actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .detail-container .action-button {
+      width: 100%;
+    }
+  }
+  
+  /* Animation for content entry */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .detail-container > div > * {
+    animation: fadeIn 0.5s ease forwards;
+  }

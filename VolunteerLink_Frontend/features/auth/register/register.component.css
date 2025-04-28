@@ -1,0 +1,196 @@
+/* Base Styles */
+:host {
+    display: block;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+  form {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  fieldset {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: white;
+  }
+  
+  legend {
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: #3498db;
+    font-size: 1.1rem;
+  }
+  
+  /* Form Elements */
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #34495e;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.3s;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+  
+  /* Role-specific Fields */
+  fieldset[ng-reflect-ng-if="true"] {
+    border-left: 4px solid;
+  }
+  
+  fieldset[ng-reflect-ng-if="true"][ng-reflect-ng-if*="ADMIN"] {
+    border-left-color: #e74c3c;
+  }
+  
+  fieldset[ng-reflect-ng-if="true"][ng-reflect-ng-if*="VOLUNTEER"] {
+    border-left-color: #2ecc71;
+  }
+  
+  /* Buttons */
+  button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 2rem auto 0;
+  }
+  
+  button[type="submit"]:hover:not(:disabled) {
+    background-color: #2980b9;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  /* Messages */
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .success-message {
+    color: #2ecc71;
+    font-size: 1rem;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .loading-message {
+    color: #3498db;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .submit-error {
+    text-align: center;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: #fdecea;
+    border-radius: 4px;
+  }
+  
+  .submit-success {
+    text-align: center;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: #e8f5e9;
+    border-radius: 4px;
+  }
+  
+  /* Links */
+  .switch-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #7f8c8d;
+  }
+  
+  .switch-link a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .switch-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Layout */
+  @media (min-width: 768px) {
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+  
+    .form-row > div {
+      flex: 1;
+    }
+  
+    fieldset {
+      padding: 2rem;
+    }
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  fieldset {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  fieldset:nth-child(2) { animation-delay: 0.1s; }
+  fieldset:nth-child(3) { animation-delay: 0.2s; }
+  fieldset:nth-child(4) { animation-delay: 0.3s; }
+  
+  /* Dynamic Required Field Indicators */
+  label:has(+ input[required])::after,
+  label:has(+ select[required])::after,
+  label:has(+ textarea[required])::after {
+    content: " *";
+    color: #e74c3c;
+  }

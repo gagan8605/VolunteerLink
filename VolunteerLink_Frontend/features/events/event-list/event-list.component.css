@@ -1,0 +1,325 @@
+/* --- Event List Component Styles --- */
+
+/* Overall Container Styling */
+.event-list-container {
+    padding: 30px 15px; /* Vertical and horizontal padding */
+    max-width: 1300px; /* Limit max width */
+    margin: 0 auto; /* Center the container */
+  }
+  
+  /* Main Heading Styling */
+  h2 {
+    text-align: center;
+    font-size: 2.2rem; /* Slightly larger */
+    font-weight: 600;
+    color: #2c3e50; /* Dark blue-gray */
+    margin-bottom: 45px; /* More space below */
+    position: relative;
+  }
+  
+  /* Decorative Underline for Heading */
+  h2::after {
+      content: '';
+      display: block;
+      width: 70px; /* Wider line */
+      height: 4px; /* Thicker line */
+      background-color: #007bff; /* Primary color accent */
+      margin: 10px auto 0; /* Center below heading */
+      border-radius: 2px;
+  }
+  
+  /* Styling for Loading, Error, and No Events Messages */
+  .loading-message, .error-message, .no-events-found {
+    text-align: center;
+    padding: 25px; /* More padding */
+    margin: 30px auto;
+    max-width: 650px;
+    border-radius: 8px; /* More rounded */
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid; /* Base border style */
+  }
+  .loading-message { color: #495057; background-color: #e9ecef; border-color: #dee2e6;} /* Info-light */
+  .error-message { color: #842029; background-color: #f8d7da; border-color: #f5c2c7;} /* Danger-light */
+  .no-events-found { color: #055160; background-color: #cff4fc; border-color: #b6effb; } /* Info-darker */
+  
+  /* Event Card Grid Layout */
+  .event-list {
+    display: grid;
+    /* Flexible columns, min 300px, max 1fr */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 35px; /* Increased gap */
+  }
+  
+  /* Individual Event Card Styling */
+  .event-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Smoother corners */
+    box-shadow: 0 6px 18px rgba(50, 50, 93, 0.11), 0 3px 10px rgba(0, 0, 0, 0.08); /* More defined shadow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #dee2e6; /* Lighter border */
+  }
+  .event-card:hover {
+    transform: translateY(-8px); /* Lift more on hover */
+    box-shadow: 0 12px 28px rgba(50, 50, 93, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  }
+  
+  /* Card Image Styling */
+  .event-card-image-container {
+      height: 200px; /* Slightly taller image area */
+      overflow: hidden;
+      position: relative; /* For potential overlays */
+  }
+  .event-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother zoom */
+  }
+  .event-card:hover .event-card-image {
+      transform: scale(1.06); /* Increase zoom effect */
+  }
+  .event-card-placeholder-image {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e9ecef; /* Lighter placeholder */
+      color: #adb5bd;
+  }
+  .event-card-placeholder-image .icon-placeholder {
+      font-size: 4.5rem; /* Larger placeholder icon */
+  }
+  
+  /* Card Content Area */
+  .event-card-content {
+    padding: 20px 25px; /* Adjust padding */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-card-title {
+    font-size: 1.35rem; /* Make title stand out */
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #343a40;
+    line-height: 1.3;
+  }
+  .event-card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .event-card-title a:hover {
+    color: #0056b3;
+  }
+  
+  .event-card-info {
+    font-size: 0.95rem; /* Standard info size */
+    color: #5a6268; /* Slightly darker muted color */
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .event-card-info i {
+      color: #868e96; /* Slightly darker icon */
+      font-size: 1.1em;
+      line-height: 1;
+      min-width: 18px; /* Ensure icons align */
+      text-align: center;
+  }
+  .event-card-info.stipend strong {
+      color: #198754; /* Green for positive emphasis */
+      font-weight: 600;
+  }
+  .event-card-info.stipend {
+      color: #198754; /* Match icon color */
+      font-weight: 500;
+  }
+  .event-card-info.stipend i {
+       color: #198754;
+  }
+  
+  
+  .event-card-description {
+    font-size: 0.98rem; /* Slightly larger description */
+    color: #495057;
+    line-height: 1.6;
+    margin-top: 10px;
+    flex-grow: 1;
+     /* Line clamp remains optional but useful */
+     display: -webkit-box;
+
+     -webkit-box-orient: vertical;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     min-height: calc(1.6em * 3); /* Rough height for 3 lines */
+  }
+  
+  /* Card Actions Area */
+  .event-card-actions {
+    padding: 15px 25px; /* Match content padding */
+    border-top: 1px solid #e9ecef; /* Lighter separator */
+    background-color: #fff; /* White background for actions */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    min-height: 60px; /* Consistent actions area height */
+  }
+  
+  /* Action Feedback Messages (Loading/Success/Error) */
+  .action-feedback {
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      flex-basis: 100%; /* Take full width if needed */
+      order: 3; /* Push below buttons */
+      text-align: center;
+      margin-top: 5px;
+  }
+  .action-feedback.loading { color: #5f6a7d; }
+  .action-feedback.success { color: #146c43; background-color: #d1e7dd; border: 1px solid #badbcc;}
+  .action-feedback.error { color: #b84252; background-color: #fadde1; border: 1px solid #f7bec6; }
+  
+  
+  /* Login prompt link styling */
+  .login-prompt a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      order: 1; /* Place before details button */
+  }
+  .login-prompt a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+  }
+  
+  /* Details link positioning */
+  .details-link-container {
+      order: 2; /* Place after apply button/login prompt */
+      margin-left: auto; /* Push details button to the right if space allows */
+  }
+  
+  /* Info/Applied Text Styling */
+  .info-text {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-style: italic;
+      order: 1; /* Place before details button */
+      margin-right: auto; /* Push against apply button */
+  }
+  .applied-text {
+       font-weight: 600;
+       color: #198754; /* Green */
+       font-style: normal;
+  }
+  
+  
+  /* Reusable Action Button Styles */
+  .action-button {
+      display: inline-flex; align-items: center; gap: 6px; font-weight: 500;
+      line-height: 1.4; color: #fff; text-align: center; text-decoration: none;
+      vertical-align: middle; cursor: pointer; user-select: none;
+      border: 1px solid transparent; padding: 8px 16px; /* Slightly larger */ font-size: 0.9rem;
+      border-radius: 6px; transition: all 0.2s ease-in-out; white-space: nowrap;
+  }
+  .action-button i { line-height: 1; }
+  .action-button:hover:not(:disabled) { opacity: 0.88; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+  .action-button:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  /* Specific Button Colors */
+  .action-button.apply-button { background-color: #007bff; border-color: #007bff; order: 1;} /* Blue */
+  .action-button.view-details-button { background-color: #6c757d; border-color: #6c757d; } /* Gray */
+  .action-button.login-prompt-button { background-color: #17a2b8; border-color: #17a2b8; } /* Teal for login */
+  
+  .action-button.apply-button:hover:not(:disabled) { background-color: #0056b3; border-color: #0056b3;}
+  .action-button.view-details-button:hover:not(:disabled) { background-color: #5a6268; border-color: #545b62;}
+  .action-button.login-prompt-button:hover:not(:disabled) { background-color: #138496; border-color: #117a8b;}
+  
+  
+  /* --- Responsiveness --- */
+  @media (max-width: 991.98px) {
+      .event-list {
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust min size slightly */
+          gap: 25px;
+      }
+       h2 { font-size: 1.9rem; margin-bottom: 30px;}
+  }
+  
+  @media (max-width: 767.98px) {
+      .event-list-container { padding: 20px 10px; }
+       .event-list { gap: 20px; }
+       h2 { font-size: 1.7rem; margin-bottom: 25px;}
+       .event-card-title { font-size: 1.2rem;}
+       .event-card-content { padding: 15px; }
+       .event-card-actions { padding: 12px 15px; flex-direction: column; align-items: stretch; min-height: auto; }
+       .action-button { width: 100%; text-align: center; justify-content: center;}
+       .details-link-container { margin-left: 0; width: 100%;}
+       .info-text { text-align: center; margin: 5px 0; order: 0;} /* Reset order */
+       .action-feedback { order: 4; }
+  }
+  
+  @media (max-width: 575.98px) {
+      .event-list {
+          grid-template-columns: 1fr; /* Force single column */
+      }
+      .event-card-image-container, .event-card-placeholder-image { height: 160px; } /* Shorter image */
+  }
+  
+  /* Icon Placeholder */
+  .icon-placeholder {
+      display: inline-block; width: 1em; height: 1em; vertical-align: middle;
+  }
+  /* ... (Keep all previous styles for cards, grid, buttons, etc.) ... */
+
+/* Search Info Display */
+.search-info {
+  background-color: #e9ecef; /* Light background */
+  color: #495057;
+  padding: 12px 18px;
+  border-radius: 6px;
+  margin-bottom: 25px; /* Space below info bar */
+  font-size: 0.95rem;
+  display: flex; /* Use flex for alignment */
+  flex-wrap: wrap; /* Allow wrapping */
+  align-items: center;
+  justify-content: space-between; /* Push button to right */
+  gap: 10px; /* Space between elements */
+  border: 1px solid #dee2e6;
+}
+.search-info strong {
+  color: #0056b3; /* Highlight search terms */
+  font-weight: 600;
+}
+
+/* Clear Search Button */
+.clear-search-button {
+  background-color: #6c757d; /* Gray */
+  border-color: #6c757d;
+  color: #fff;
+  padding: 5px 10px; /* Smaller button */
+  font-size: 0.85rem;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+.clear-search-button:hover:not(:disabled) {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Adjust h2 margin if search info is shown */
+.search-info + h2 {
+  margin-top: 0;
+}
+
+/* ... (Rest of the CSS) ... */

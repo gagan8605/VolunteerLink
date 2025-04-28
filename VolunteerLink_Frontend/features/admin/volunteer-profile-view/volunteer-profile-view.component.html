@@ -1,0 +1,39 @@
+<button (click)="goBack()" class="action-button cancel">← Back</button>
+
+<div *ngIf="isLoading" class="loading-message">Loading profile...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="profile && !isLoading && !error" class="profile-details">
+    <h2>Volunteer Profile: {{ profile.fullName }}</h2>
+
+    <fieldset>
+        <legend>Contact Information</legend>
+        <p><strong>Email:</strong> <span>{{ profile.email }}</span></p>
+        <p><strong>Phone:</strong> <span>{{ profile.phoneNumber || '-' }}</span></p>
+        <p><strong>Address:</strong> <span>{{ profile.address || '-' }}</span></p>
+        <p><strong>Location (City, State):</strong> <span>{{ profile.location || '-' }}</span></p>
+        <p *ngIf="profile.volunteerDetails?.emergencyContactNumber"><strong>Emergency Contact:</strong> <span>{{ profile.volunteerDetails?.emergencyContactNumber }}</span></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Personal Information</legend>
+        <p><strong>Date of Birth:</strong> <span>{{ profile.dateOfBirth | date:'longDate' }}</span></p>
+        <p><strong>Gender:</strong> <span>{{ profile.gender ? (profile.gender | titlecase) : '-' }}</span></p>
+        <p><strong>General Type:</strong> <span>{{ profile.generalOrgType || '-' }}</span></p>
+    </fieldset>
+
+    <fieldset *ngIf="profile.volunteerDetails">
+        <legend>Volunteer Specifics</legend>
+        <p><strong>Area(s) of Interest:</strong> <span>{{ profile.volunteerDetails.areaOfInterest || '-' }}</span></p>
+        <p><strong>Availability:</strong> <span>{{ profile.volunteerDetails.availability || '-' }}</span></p>
+        <p><strong>Skills/Certifications:</strong> <span>{{ profile.volunteerDetails.skillsCertifications || '-' }}</span></p>
+        <p><strong>Previous Experience:</strong> <span>{{ profile.volunteerDetails.previousExperience || '-' }}</span></p>
+        <p><strong>Willing to Relocate:</strong> <span>{{ profile.volunteerDetails.willingToRelocate ? 'Yes' : 'No' }}</span></p>
+        <p><strong>Preferred Location:</strong> <span>{{ profile.volunteerDetails.preferredLocation || '-' }}</span></p>
+    </fieldset>
+
+</div>
+
+<div *ngIf="!profile && !isLoading && !error">
+    <p>Volunteer profile not found or user is not a volunteer.</p>
+</div>

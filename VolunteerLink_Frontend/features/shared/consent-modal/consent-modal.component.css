@@ -1,0 +1,185 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Ensure it's above other content */
+    animation: fadeInOverlay 0.3s ease-out;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 30px 35px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    max-width: 700px; /* Limit width */
+    width: 90%; /* Responsive width */
+    max-height: 85vh; /* Limit height */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For close button positioning */
+     animation: slideInModal 0.4s ease-out;
+  }
+  
+   @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+   @keyframes slideInModal { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+  
+  
+  .modal-close-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      line-height: 1;
+      color: #888;
+      cursor: pointer;
+      padding: 0;
+  }
+   .modal-close-button:hover {
+       color: #333;
+   }
+  
+  
+  h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #0056b3; /* Primary color */
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  
+  p {
+      margin-bottom: 15px;
+      line-height: 1.5;
+      color: #444;
+  }
+  p strong {
+      font-weight: 600;
+      color: #333;
+  }
+  
+  .consent-points-container {
+    max-height: 40vh; /* Limit height of points list */
+    overflow-y: auto; /* Enable scrolling */
+    border: 1px solid #eee;
+    padding: 10px 15px 10px 30px; /* Add padding for list */
+    margin-bottom: 20px;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+  }
+  
+  .consent-points-container ul {
+    list-style-type: decimal; /* Numbered list */
+    padding-left: 0; /* Remove default padding */
+     margin: 0;
+  }
+  
+  .consent-points-container li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .agreement-section {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f0f8ff; /* Light blue background */
+    border-radius: 4px;
+    border: 1px solid #d1e9ff;
+  }
+  
+  .agreement-section input[type="checkbox"] {
+    margin-right: 10px;
+    vertical-align: middle;
+     width: 16px; /* Adjust size */
+     height: 16px;
+     cursor: pointer;
+  }
+  
+  .agreement-section label {
+    font-weight: 500;
+    color: #004085; /* Darker blue */
+    cursor: pointer;
+    vertical-align: middle;
+    font-size: 0.95rem;
+  }
+  .agreement-error {
+      color: #dc3545;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      padding-left: 26px; /* Align with checkbox text */
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons right */
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  /* Re-use action button base styles if defined globally, otherwise define here */
+  .action-button {
+      display: inline-flex; align-items: center; gap: 6px; font-weight: 500;
+      line-height: 1.4; color: #fff; text-align: center; text-decoration: none;
+      vertical-align: middle; cursor: pointer; user-select: none;
+      border: 1px solid transparent; padding: 9px 18px; font-size: 0.95rem;
+      border-radius: 5px; transition: all 0.2s ease-in-out;
+  }
+   .action-button:disabled {
+       opacity: 0.6;
+       cursor: not-allowed;
+       background-color: #adb5bd !important; /* Ensure disabled style overrides */
+       border-color: #adb5bd !important;
+   }
+   .action-button:hover:not(:disabled) { opacity: 0.88; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  
+  
+  .action-button.cancel-button {
+      background-color: #6c757d;
+      border-color: #6c757d;
+  }
+   .action-button.cancel-button:hover:not(:disabled) {
+       background-color: #5a6268;
+       border-color: #545b62;
+   }
+  
+  .action-button.confirm-button {
+      background-color: #198754; /* Green for confirm */
+      border-color: #198754;
+  }
+   .action-button.confirm-button:hover:not(:disabled) {
+       background-color: #157347;
+       border-color: #146c43;
+   }
+  
+  /* Error message styling */
+  .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 5px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+      .modal-content {
+          padding: 20px 25px;
+          width: 95%;
+          max-height: 90vh;
+      }
+      h2 { font-size: 1.4rem;}
+      .consent-points-container { max-height: 35vh; }
+      .modal-actions { flex-direction: column-reverse; align-items: stretch;}
+      .action-button { width: 100%; justify-content: center; }
+  }

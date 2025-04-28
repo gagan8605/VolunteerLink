@@ -1,0 +1,387 @@
+/* src/app/features/dashboard/layout/layout.component.css */
+
+/* --- Basic Resets & Variables --- */
+:host { /* Styles apply to the component host element */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+}
+
+/* --- Utility Classes --- */
+.layout-limiter {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+/* --- Header --- */
+.app-header {
+  background-color: #ffffff;
+  padding: 12px 0; /* Slightly more padding */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06); /* Slightly stronger shadow */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #eee; /* Subtle border */
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between; /* <<< Key for alignment */
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.app-logo {
+  margin: 0;
+  font-size: 1.7rem; /* Slightly larger logo */
+  font-weight: 700;
+}
+.app-logo a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+/* Container for Nav Links and Auth Actions */
+.header-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between main nav and auth actions */
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+/* Main Navigation (Links shown when logged in) */
+.main-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px; /* Space between nav links */
+  align-items: center;
+}
+
+.main-navigation a {
+  text-decoration: none;
+  color: #000306; /* Darker gray */
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 0.95rem; /* Slightly adjust font size */
+}
+.main-navigation a:hover {
+  background-color: #f0f2f5; /* Lighter hover */
+  color: #0056b3;
+}
+.main-navigation a.active {
+  color: #0056b3;
+  font-weight: 600;
+  background-color: rgba(0, 123, 255, 0.08); /* Subtle active background */
+}
+
+/* Auth Actions Container (Login/Register or User/Logout) */
+.auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between buttons/elements */
+}
+
+.user-greeting {
+    color: #0f0101;
+    font-weight: 500;
+    margin-right: 5px; /* Space before logout */
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Base Button Style */
+.nav-button {
+  border: 1px solid;
+  padding: 7px 15px; /* Adjusted padding */
+  border-radius: 20px; /* Pill shape */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none; /* Ensure links look like buttons */
+  display: inline-block; /* Ensure links behave like buttons */
+  line-height: 1.4; /* Adjust line height for button text */
+}
+
+/* Specific Button Styles */
+.nav-button.login-button {
+    border-color: #007bff;
+    color: #007bff;
+    background-color: transparent;
+}
+.nav-button.login-button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.nav-button.register-button {
+    border-color: #198754;
+    color: #fff;
+    background-color: #198754; /* Solid background */
+}
+.nav-button.register-button:hover {
+    background-color: #157347; /* Darker green on hover */
+    border-color: #146c43;
+}
+
+.nav-button.logout-button {
+    border-color: #dc3545;
+    color: #dc3545;
+    background-color: transparent;
+}
+.nav-button.logout-button:hover {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* --- Main Content Area --- */
+.main-content-area {
+  flex-grow: 1;
+  padding-top: 20px; /* Add some space below header */
+}
+
+/* --- Compact Footer --- */
+.app-footer {
+  background-color: #343a40;
+  color: #adb5bd;
+  padding: 30px 0 15px; /* Reduced padding */
+  margin-top: 30px;
+  font-size: 0.85rem; /* Slightly smaller base font */
+}
+
+.footer-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Slightly narrower columns */
+  gap: 20px; /* Reduced gap */
+  margin-bottom: 20px;
+}
+
+.footer-info-column h5,
+.footer-links-column h5,
+.footer-social-column h5 {
+  color: #fff;
+  margin-bottom: 12px; /* Reduced margin */
+  font-weight: 600;
+  font-size: 1rem; /* Smaller heading */
+}
+
+.footer-info-column p {
+  line-height: 1.5; /* Tighter line height */
+  margin-bottom: 12px; /* Reduced margin */
+}
+
+.footer-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav-links li {
+  margin-bottom: 6px; /* Reduced spacing */
+}
+
+.footer-nav-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.85rem; /* Smaller font */
+}
+
+.footer-nav-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-social-icons a {
+  color: #adb5bd;
+  font-size: 1.2rem; /* Smaller icons */
+  margin-right: 12px; /* Reduced spacing */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-social-icons a:last-child {
+  margin-right: 0;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-top: 20px; /* Reduced margin */
+  padding-top: 15px; /* Reduced padding */
+  border-top: 1px solid #495057;
+  font-size: 0.8rem; /* Smaller font */
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 767.98px) {
+  .app-footer {
+    padding: 25px 0 10px;
+  }
+  
+  .footer-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .footer-social-icons {
+    margin-top: 8px;
+    justify-content: center;
+  }
+  
+  .footer-info-column h5,
+  .footer-links-column h5,
+  .footer-social-column h5 {
+    margin-bottom: 8px;
+  }
+}
+/* --- Existing Layout Styles --- */
+/* ... (Keep header, logo, nav, footer, buttons etc. styles) ... */
+
+/* --- Header Adjustments --- */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between logo and actions */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+.header-nav-actions {
+    flex-grow: 1; /* Allow this container to grow */
+    justify-content: flex-end; /* Align items towards the end */
+    gap: 15px; /* Adjust gap */
+}
+.main-navigation {
+    /* Main nav takes space but doesn't grow excessively */
+    flex-shrink: 0;
+}
+.auth-actions {
+    flex-shrink: 0; /* Prevent auth buttons shrinking too much */
+}
+
+
+/* --- Event Search Bar Styles --- */
+.event-search-container {
+    display: flex;
+    align-items: center;
+    /* Allow search to take available space, but not push auth buttons too far */
+    flex-grow: 1;
+    max-width: 500px; /* Limit search bar width */
+    margin: 0 15px; /* Add some margin */
+}
+.event-search-form {
+    display: flex;
+    width: 100%;
+    background-color: #f0f2f5; /* Light background for search */
+    border-radius: 20px; /* Rounded corners */
+    padding: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.event-search-form input[type="text"],
+.event-search-form input[type="date"] {
+    border: none;
+    background-color: transparent;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    outline: none;
+    flex-grow: 1; /* Allow inputs to grow */
+}
+.event-search-form input[type="text"] {
+    min-width: 120px; /* Ensure location has some minimum width */
+}
+.event-search-form input[type="date"] {
+    /* Styles specific to date input if needed */
+    color: #555; /* Make date picker text visible */
+     min-width: 130px;
+}
+/* Clear default browser styling for date input if possible */
+.event-search-form input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+.event-search-form button.search-button {
+    border: none;
+    background-color: #37f2f9; /* Primary color */
+    color: white;
+    border-radius: 50%; /* Circular button */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0; /* Prevent button shrinking */
+    margin-left: 5px;
+}
+.event-search-form button.search-button:hover {
+    background-color: #0056b3;
+}
+.event-search-form button.search-button i {
+    font-size: 1rem; /* Icon size */
+    margin: 0; /* Reset icon margin */
+}
+
+/* --- Responsiveness for Search Bar --- */
+@media (max-width: 991.98px) {
+    .header-nav-actions {
+        /* Search might wrap below nav/auth on smaller screens depending on space */
+        justify-content: space-between; /* Allow wrapping */
+        width: 100%;
+        order: 3; /* Push below logo/auth actions */
+        margin-top: 10px;
+    }
+    .event-search-container {
+        max-width: none; /* Allow full width */
+        margin: 0;
+        order: 1; /* Position before main nav when wrapped */
+    }
+    .main-navigation {
+         order: 2; /* Position after search when wrapped */
+         width: auto; /* Reset width */
+         margin-top: 0;
+    }
+     .auth-actions {
+         /* Stays aligned with logo initially */
+         order: 0;
+     }
+}
+@media (max-width: 767.98px) {
+     .header-nav-actions {
+         flex-direction: column; /* Stack nav/search/auth */
+         align-items: stretch; /* Stretch items */
+         gap: 10px;
+     }
+     .event-search-container, .main-navigation, .auth-actions {
+         width: 100%;
+         order: 0; /* Reset order */
+         margin: 0;
+         justify-content: center;
+     }
+      .auth-actions {
+         margin-top: 5px;
+     }
+     .main-navigation ul {
+         justify-content: center;
+     }
+}
+
+
+/* --- Other existing styles (.app-footer, etc.) --- */
+/* ... */

@@ -1,0 +1,39 @@
+<h2>Manage Your Events</h2>
+
+<button (click)="addEvent()" class="action-button approve">Add New Event</button>
+
+<div *ngIf="isLoading" class="loading-message">Loading your events...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="!isLoading && !error">
+  <div *ngIf="adminEvents.length > 0; else noEvents">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of adminEvents">
+          <td><a [routerLink]="['/app/events', event.id]">{{ event.title }}</a></td>
+          <td>{{ event.date | date:'medium' }}</td>
+          <td>{{ event.location || '-'}}</td>
+          <td>
+              <button (click)="viewVolunteers(event.id)" class="action-button view" [disabled]="deleteLoading[event.id!]">View Volunteers</button>
+              <button (click)="editEvent(event.id)" class="action-button edit" [disabled]="deleteLoading[event.id!]">Edit</button>
+              <button (click)="deleteEvent(event.id)" class="action-button delete" [disabled]="deleteLoading[event.id!]">
+                 {{ deleteLoading[event.id!] ? 'Deleting...' : 'Delete' }}
+              </button>
+               <div *ngIf="deleteError[event.id!]" class="error-message">{{ deleteError[event.id!] }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noEvents>
+    <p>You haven't created any events yet.</p>
+  </ng-template>
+</div>

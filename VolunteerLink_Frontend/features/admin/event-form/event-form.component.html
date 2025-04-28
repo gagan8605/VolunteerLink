@@ -1,0 +1,57 @@
+<h2>{{ pageTitle }}</h2>
+
+<div *ngIf="isLoading && isEditMode" class="loading-message">Loading event data...</div>
+<div *ngIf="error" class="error-message submit-error">{{ error }}</div>
+
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="title">Event Title: *</label>
+    <input id="title" type="text" formControlName="title" required>
+     <div *ngIf="eventForm.controls['title'].invalid && eventForm.controls['title'].touched" class="error-message">
+        Required
+    </div>
+  </div>
+
+  <div>
+    <label for="date">Date and Time: *</label>
+    <input id="date" type="datetime-local" formControlName="date" required>
+     <div *ngIf="eventForm.controls['date'].invalid && eventForm.controls['date'].touched" class="error-message">
+       Required
+    </div>
+  </div>
+
+   <div>
+    <label for="location">Location:</label>
+    <input id="location" type="text" formControlName="location">
+  </div>
+
+   <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description" rows="4"></textarea>
+  </div>
+
+   <div>
+    <label for="salary">Salary/Stipend (Optional):</label>
+    <input id="salary" type="number" step="0.01" min="0" formControlName="salary">
+     <div *ngIf="eventForm.controls['salary'].invalid && eventForm.controls['salary'].touched" class="error-message">
+       Must be 0 or more
+    </div>
+  </div>
+
+   <div>
+    <label for="organizerPhoneNumber">Organizer Contact Phone (Optional):</label>
+    <input id="organizerPhoneNumber" type="tel" formControlName="organizerPhoneNumber" placeholder="e.g., 123-456-7890">
+    <!-- Add pattern validation if needed -->
+  </div>
+
+    <div class="form-actions">
+         <button type="submit" [disabled]="eventForm.invalid || isLoading || !currentAdminId" class="action-button approve">
+           {{ isLoading ? 'Saving...' : (isEditMode ? 'Update Event' : 'Create Event') }}
+         </button>
+         <button type="button" (click)="cancel()" class="action-button cancel" [disabled]="isLoading">Cancel</button>
+    </div>
+
+     <div *ngIf="isLoading && !isEditMode" class="loading-message">Creating event...</div>
+     <div *ngIf="isLoading && isEditMode" class="loading-message">Updating event...</div>
+
+</form>

@@ -1,0 +1,28 @@
+<div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()"> <!-- Prevent closing when clicking inside -->
+      <button class="modal-close-button" (click)="closeModal()" aria-label="Close consent form">×</button>
+      <h2>Volunteer Agreement & Consent</h2>
+      <p>Before applying for <strong>{{ eventTitle }}</strong>, please read and agree to the following terms:</p>
+  
+      <div class="consent-points-container">
+        <ul>
+          <li *ngFor="let point of consentPoints">{{ point }}</li>
+        </ul>
+      </div>
+  
+      <div class="agreement-section">
+        <input type="checkbox" id="agreementCheckbox" [(ngModel)]="agreed" (change)="showAgreementError = false">
+        <label for="agreementCheckbox">I have read, understood, and agree to all the terms and conditions listed above.</label>
+        <div *ngIf="showAgreementError" class="error-message agreement-error">
+          You must agree to the terms to apply.
+        </div>
+      </div>
+  
+      <div class="modal-actions">
+        <button class="action-button cancel-button" (click)="onCancel()">Cancel</button>
+        <button class="action-button confirm-button" (click)="onConfirmApply()" [disabled]="!agreed">
+          Confirm & Apply
+        </button>
+      </div>
+    </div>
+  </div>

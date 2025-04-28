@@ -1,0 +1,82 @@
+<button (click)="goBack()" class="action-button cancel">← Back</button>
+
+<h2 *ngIf="event">Manage Volunteers for: {{ event.title }}</h2>
+<h2 *ngIf="!event && !isLoading">Volunteer Signups</h2>
+
+<div *ngIf="isLoading" class="loading-message">Loading volunteers...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="!isLoading && !error">
+  <div *ngIf="signups.length > 0; else noSignups">
+    <table>
+      <thead>
+        <tr>
+          <th>Volunteer Name</th>
+          <th>Status</th>
+          <th>Feedback/Reason Input</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let signup of signups">
+          <td>
+             <button type="button" class="link-button" (click)="viewVolunteerProfile(signup.userId)">
+                {{ signup.userName }}
+            </button>
+          </td>
+          <td>
+             <span [ngClass]="getStatusClass(signup.status)">{{ signup.status | titlecase }}</span>
+             <div *ngIf="signup.status === SignupStatus.CancelledByVolunteer" class="cancel-reason">
+                 <small>Volunteer Reason: {{ signup.volunteerCancellationReason || '-' }}</small>
+                 <small *ngIf="signup.cancelledByVolunteerAt">(on {{ signup.cancelledByVolunteerAt | date:'short' }})</small>
+            </div>
+             <div *ngIf="signup.status === SignupStatus.CancelledByAdmin" class="cancel-reason">
+                 <small>Your Reason: {{ signup.adminCancellationReason || '-' }}</small>
+                 <small *ngIf="signup.cancelledByAdminAt">(on {{ signup.cancelledByAdminAt | date:'short' }})</small>
+            </div>
+             <div *ngIf="signup.status === SignupStatus.Approved && signup.adminFeedback" class="feedback-display">
+                <small>Your Feedback: {{ signup.adminFeedback }}</small>
+            </div>
+             <div *ngIf="signup.status === SignupStatus.Rejected && signup.adminFeedback" class="feedback-display">
+                 <small>Your Reason: {{ signup.adminFeedback }}</small>
+            </div>
+          </td>
+          <td>
+             <div *ngIf="signup.status === SignupStatus.Pending || signup.status === SignupStatus.Approved" [formGroup]="feedbackForms[signup.id]">
+                <textarea
+                    formControlName="feedbackOrReason"
+                    rows="2"
+                    placeholder="Feedback (for Approve/Reject) or Reason (for Cancel)..."
+                    [required]="signup.status === SignupStatus.Approved || signup.status === SignupStatus.Pending" >
+                </textarea>
+                 <div *ngIf="feedbackForms[signup.id].get('feedbackOrReason')?.invalid && feedbackForms[signup.id].get('feedbackOrReason')?.touched" class="error-message">
+                      Reason/Feedback is required for Reject/Cancel actions.
+                 </div>
+                  <div *ngIf="statusUpdateError[signup.id]" class="error-message">{{ statusUpdateError[signup.id] }}</div>
+             </div>
+              <div *ngIf="signup.status === SignupStatus.Rejected || signup.status === SignupStatus.CancelledByVolunteer || signup.status === SignupStatus.CancelledByAdmin">
+                 <span>-</span> <!-- No input needed for final states -->
+              </div>
+          </td>
+          <td>
+             <div *ngIf="signup.status === SignupStatus.Pending">
+                 <button (click)="manageStatus(signup, SignupStatus.Approved)" class="action-button approve" [disabled]="statusUpdateLoading[signup.id]">Approve</button>
+                 <button (click)="manageStatus(signup, SignupStatus.Rejected)" class="action-button reject" [disabled]="statusUpdateLoading[signup.id]">Reject</button>
+                 <button (click)="manageStatus(signup, SignupStatus.CancelledByAdmin)" class="action-button delete" [disabled]="statusUpdateLoading[signup.id]">Cancel Signup</button>
+            </div>
+             <div *ngIf="signup.status === SignupStatus.Approved">
+                  <button (click)="manageStatus(signup, SignupStatus.CancelledByAdmin)" class="action-button delete" [disabled]="statusUpdateLoading[signup.id]">Cancel Signup</button>
+             </div>
+             <div *ngIf="signup.status === SignupStatus.Rejected || signup.status === SignupStatus.CancelledByVolunteer || signup.status === SignupStatus.CancelledByAdmin">
+                 <span>-</span>
+             </div>
+             <div *ngIf="statusUpdateLoading[signup.id]" class="loading-message">Processing...</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noSignups>
+    <p>No volunteers have signed up for this event yet.</p>
+  </ng-template>
+</div>

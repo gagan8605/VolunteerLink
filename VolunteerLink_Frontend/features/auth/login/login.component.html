@@ -1,0 +1,39 @@
+<h2>Login</h2>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email" required>
+ 
+    <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="error-message">
+        <span *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</span>
+        <span *ngIf="loginForm.controls['email'].errors?.['email']">Please enter a valid email address.</span>
+    </div>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password" required>
+    
+     <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="error-message">
+        <span *ngIf="loginForm.controls['password'].errors?.['required']">Password is required.</span>
+    </div>
+  </div>
+
+ 
+  <div *ngIf="errorMessage" class="error-message submit-error">
+    {{ errorMessage }}
+  </div>
+
+  
+   <div *ngIf="isLoading" class="loading-message">
+     Logging in...
+   </div>
+
+ 
+  <button type="submit" [disabled]="loginForm.invalid || isLoading">
+    Login
+  </button>
+</form>
+
+
+<p class="switch-link">Don't have an account? <a routerLink="/auth/register">Register here</a></p>

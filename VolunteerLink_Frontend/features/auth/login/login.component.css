@@ -1,0 +1,165 @@
+/* --- Login Component Specific Styles --- */
+
+/* Form container */
+form {
+    max-width: 400px; /* Or your preferred max width */
+    margin: 40px auto; /* Centering: top/bottom margin, auto left/right */
+    padding: 30px 35px; /* Generous padding */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Soft shadow */
+    border: 1px solid #e8e8e8; /* Subtle border */
+  }
+  
+  /* Heading */
+  h2 {
+    text-align: center;
+    margin-bottom: 30px; /* More space below heading */
+    color: #333;
+    font-weight: 600;
+    font-size: 1.8rem; /* Larger heading */
+  }
+  
+  /* Form group (div containing label + input + error) */
+  form div {
+    margin-bottom: 20px; /* Consistent spacing between fields */
+    position: relative; /* For potential icon positioning later if needed */
+  }
+  
+  /* Labels */
+  label {
+    display: block;
+    margin-bottom: 8px; /* Space below label */
+    font-weight: 500; /* Slightly bolder */
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  /* Input fields */
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 15px; /* Comfortable padding */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Slightly more rounded */
+    box-sizing: border-box; /* Include padding/border in width */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 1rem;
+    background-color: #f9f9f9; /* Very light background */
+  }
+  
+  /* Input focus styles */
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none; /* Remove default browser outline */
+    border-color: #007bff; /* Highlight border */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); /* Subtle glow */
+    background-color: #fff; /* White background on focus */
+  }
+  
+  /* Error messages */
+  .error-message {
+    color: #e74c3c; /* Different red for errors */
+    font-size: 0.85rem;
+    margin-top: 6px; /* Space above error */
+    padding-left: 2px; /* Slight indent */
+  }
+  
+  .error-message span {
+      display: block; /* Ensure each error message is on a new line */
+  }
+  
+  /* Specific style for the main submit error */
+  .submit-error {
+    font-weight: 500;
+    margin-top: 15px;
+    text-align: center;
+    background-color: rgba(231, 76, 60, 0.1); /* Light red background */
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+  /* Loading message */
+  .loading-message {
+    text-align: center;
+    color: #6c757d;
+    margin-top: 15px;
+    padding: 10px 0;
+    font-style: italic;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(45deg, #007bff, #0056b3); /* Gradient background */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.05rem; /* Slightly larger text */
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    margin-top: 15px; /* Space above button */
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Button shadow */
+  }
+  
+  /* Submit button hover */
+  button[type="submit"]:not(:disabled):hover {
+    opacity: 0.9;
+  }
+  
+  /* Submit button active/click */
+  button[type="submit"]:not(:disabled):active {
+    transform: scale(0.99); /* Slight shrink effect */
+     box-shadow: 0 1px 3px rgba(0, 123, 255, 0.3);
+  }
+  
+  
+  /* Submit button disabled */
+  button[type="submit"]:disabled {
+    background: #adb5bd; /* Gray background */
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  /* Link to switch to registration */
+  .switch-link {
+    text-align: center;
+    margin-top: 30px; /* More space above */
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .switch-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .switch-link a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+  }
+  
+  /* --- Responsiveness --- */
+  @media (max-width: 480px) {
+    form {
+      padding: 25px 20px; /* Reduce padding on small screens */
+      margin: 20px 15px; /* Reduce margins */
+      max-width: none; /* Allow form to take more width */
+    }
+  
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+  
+    input[type="email"],
+    input[type="password"],
+    button[type="submit"] {
+      padding: 11px 14px; /* Adjust padding slightly */
+      font-size: 0.95rem;
+    }
+  }

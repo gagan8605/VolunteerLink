@@ -1,0 +1,29 @@
+/* ... (Keep existing table, wrapper, message styles) ... */
+
+/* Specific style for the download button */
+.action-button.download-button {
+    background-color: #198754; /* Green */
+    border-color: #198754;
+}
+.action-button.download-button:hover:not(:disabled) {
+    background-color: #157347;
+    border-color: #146c43;
+}
+.action-button.download-button:disabled {
+    background-color: #adb5bd; /* Use standard disabled color */
+    border-color: #adb5bd;
+}
+
+/* Style for error message below button */
+.error-message.action-error {
+    text-align: left;
+    font-size: 0.85rem;
+    padding: 4px 0 0 0;
+    margin: 5px 0 0 5px; /* Add slight left margin */
+    background-color: transparent;
+    border: none;
+    color: #dc3545;
+    display: block; /* Ensure it takes block space */
+}
+
+/* ... (Rest of CSS) ... */

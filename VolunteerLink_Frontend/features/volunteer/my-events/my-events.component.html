@@ -1,0 +1,73 @@
+<h2>
+  My Event Signups
+  <button (click)="refreshEvents()" class="action-button view" title="Refresh List" [disabled]="isLoading">
+      ↻
+  </button>
+</h2>
+
+<div *ngIf="isLoading" class="loading-message">Loading your events...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="!isLoading && !error">
+<div *ngIf="mySignups.length > 0; else noSignups">
+  <table>
+    <thead>
+      <tr>
+        <th>Event Title</th>
+        <th>Event Date</th>
+        <th>Status</th>
+        <th>Admin Feedback / Reason</th>
+         <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let signup of mySignups">
+        <td><a [routerLink]="['/app/events', signup.eventId]">{{ signup.eventTitle }}</a></td>
+        <td>{{ signup.eventDate | date:'medium' }}</td>
+        <td>
+          <span [ngClass]="getStatusClass(signup.status)">{{ signup.status | titlecase }}</span>
+          <div *ngIf="signup.status === SignupStatus.CancelledByVolunteer" class="cancel-reason">
+              <small>Your Reason: {{ signup.volunteerCancellationReason || '-' }}</small>
+               <small *ngIf="signup.cancelledByVolunteerAt">(on {{ signup.cancelledByVolunteerAt | date:'short' }})</small>
+          </div>
+           <div *ngIf="signup.status === SignupStatus.CancelledByAdmin" class="cancel-reason">
+                <small *ngIf="signup.cancelledByAdminAt">(on {{ signup.cancelledByAdminAt | date:'short' }})</small>
+          </div>
+        </td>
+        <td>
+           {{ signup.adminFeedback || signup.adminCancellationReason || '-' }}
+        </td>
+         <td>
+             <a [routerLink]="['events/:id', signup.eventId]" class="action-button view">View Event</a>
+             <button *ngIf="canCancel(signup)" (click)="toggleCancelForm(signup.id)" class="action-button delete">
+               {{ showCancelForm[signup.id!] ? 'Hide Cancel Form' : 'Cancel Signup' }}
+             </button>
+
+             <div *ngIf="showCancelForm[signup.id!]" class="cancel-form" [formGroup]="cancelForms[signup.id!]">
+                  <label for="reason-{{signup.id}}">Reason for Cancellation: *</label>
+                  <textarea id="reason-{{signup.id}}" formControlName="reason" rows="3" required></textarea>
+                   <div *ngIf="cancelForms[signup.id!].get('reason')?.invalid && cancelForms[signup.id!].get('reason')?.touched" class="error-message">
+                      Reason is required.
+                   </div>
+                   <div *ngIf="cancelError[signup.id!]" class="error-message">{{ cancelError[signup.id!] }}</div>
+                   <div *ngIf="cancelLoading[signup.id!]" class="loading-message">Cancelling...</div>
+                  <button (click)="submitCancellation(signup.id)" class="action-button delete" [disabled]="cancelForms[signup.id!].invalid || cancelLoading[signup.id!]">
+                      Confirm Cancellation
+                  </button>
+                   <button type="button" (click)="toggleCancelForm(signup.id)" class="action-button cancel" [disabled]="cancelLoading[signup.id!]">
+                      Never Mind
+                  </button>
+             </div>
+         </td>
+      </tr>
+    </tbody>
+  </table>
+   <p class="note" *ngIf="canCancelAnySignup">
+       Note: Approved signups can only be cancelled up to {{CANCELLATION_WINDOW_HOURS}} hours before the event starts.
+   </p>
+</div>
+<ng-template #noSignups>
+  <p>You haven't signed up for any events yet.</p>
+  <p><a routerLink="/events">Find events to join!</a></p>
+</ng-template>
+</div>

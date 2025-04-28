@@ -1,0 +1,297 @@
+/* --- My Events Component Styles --- */
+
+/* Page Heading */
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #333;
+  }
+  .page-heading span {
+      flex-grow: 1; /* Allow text to take space */
+  }
+  /* Refresh Button Styling */
+  .refresh-button {
+      padding: 6px 10px; /* Smaller padding */
+      font-size: 1rem; /* Icon size */
+      line-height: 1;
+      background-color: #f8f9fa; /* Light background */
+      border: 1px solid #ccc;
+      color: #555;
+      box-shadow: none;
+  }
+  .refresh-button:hover:not(:disabled) {
+      background-color: #e9ecef;
+      border-color: #bbb;
+      color: #333;
+      transform: none; /* No lift on hover */
+      box-shadow: none;
+  }
+  .refresh-button:disabled {
+       opacity: 0.6;
+       cursor: not-allowed;
+       background-color: #f8f9fa;
+  }
+  
+  /* Loading/Error/No Signups Messages */
+  .loading-message, .error-message, .no-events-found {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 6px;
+  }
+  .loading-message { color: #6c757d; background-color: #f8f9fa; }
+  .error-message { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7;}
+  .no-events-found { color: #055160; background-color: #cff4fc; border: 1px solid #bee5eb; }
+  .no-events-found p { margin-bottom: 15px; }
+  .find-events-button { /* Specific style for button in no-events */
+       background-color: #198754;
+       border-color: #198754;
+  }
+  
+  /* Table Wrapper for Responsive Scroll */
+  .table-wrapper {
+    overflow-x: auto;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 8px; /* Rounded corners for wrapper */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e9ecef;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px; /* Ensure minimum width before scrolling */
+  }
+  
+  th, td {
+    padding: 14px 16px; /* Generous padding */
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0; /* Lighter border */
+    vertical-align: middle;
+  }
+  
+  /* Table Header */
+  thead {
+      background-color: #f8f9fa;
+      border-bottom: 2px solid #dee2e6; /* Stronger header separator */
+  }
+  th {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap; /* Prevent header wrapping */
+  }
+  
+  /* Table Body Rows */
+  tbody tr {
+    transition: background-color 0.2s ease;
+  }
+  tbody tr:last-child td {
+      border-bottom: none; /* Remove border from last row */
+  }
+  tbody tr:hover {
+    background-color: #f1f5f9; /* Subtle hover */
+  }
+  td {
+    color: #333;
+    font-size: 0.95rem;
+  }
+  td a { color: #007bff; text-decoration: none; font-weight: 500; }
+  td a:hover { text-decoration: underline; color: #0056b3; }
+  
+  /* Status Badge Styling */
+  .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px; /* Pill shape */
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-align: center;
+  }
+  .status-approved { background-color: #d1e7dd; color: #0f5132; border: 1px solid #a3cfbb;} /* Green */
+  .status-rejected { background-color: #f8d7da; color: #842029; border: 1px solid #f1aeb5;} /* Red */
+  .status-pending { background-color: #fff3cd; color: #664d03; border: 1px solid #ffe69c;} /* Yellow */
+  .status-cancelled { background-color: #e9ecef; color: #6c757d; border: 1px solid #ced4da; text-decoration: line-through;} /* Gray */
+  
+  /* Cancelled By Info */
+  .cancelled-by-info {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-top: 4px;
+      display: block; /* Put on new line */
+  }
+  .cancelled-by-info small {
+      margin-right: 5px;
+  }
+  
+  
+  /* Actions Cell Styling */
+  td.actions-cell {
+    text-align: left; /* Align buttons left */
+    white-space: nowrap; /* Prevent wrapping initially */
+    /* Buttons will stack vertically due to default block/inline-block behavior if space is tight */
+  }
+  .action-button { /* Reusable styles */
+      display: inline-flex; align-items: center; gap: 5px; font-weight: 500;
+      line-height: 1.4; color: #fff; text-align: center; text-decoration: none;
+      vertical-align: middle; cursor: pointer; user-select: none;
+      border: 1px solid transparent; padding: 7px 12px; font-size: 0.85rem;
+      border-radius: 5px; transition: all 0.2s ease-in-out; margin: 3px 5px 3px 0;
+  }
+  .action-button i { line-height: 1; }
+  .action-button:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .action-button:active:not(:disabled) { transform: translateY(0px); box-shadow: none; }
+  .action-button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+  
+  /* Specific Button Colors */
+  .action-button.view { background-color: #0dcaf0; border-color: #0dcaf0; color: #000; }
+  .action-button.delete { background-color: #dc3545; border-color: #dc3545; }
+  .action-button.cancel { background-color: #6c757d; border-color: #6c757d; }
+  
+  .action-button.view:hover:not(:disabled) { background-color: #0baccc; border-color: #0aa0bf; }
+  .action-button.delete:hover:not(:disabled) { background-color: #c82333; border-color: #bd2130; }
+  .action-button.cancel:hover:not(:disabled) { background-color: #5a6268; border-color: #545b62; }
+  
+  /* Cancellation Form Styling */
+  .cancel-form-container {
+      margin-top: 10px;
+      padding: 15px;
+      background-color: #f8f9fa; /* Light background for form */
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      animation: fadeIn 0.3s ease-out; /* Fade-in animation */
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .cancel-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #495057;
+  }
+  
+  .cancel-form textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 60px;
+      margin-bottom: 10px;
+  }
+  .cancel-form textarea:focus {
+      outline: none;
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .cancel-form .error-message {
+      font-size: 0.85rem;
+      color: #dc3545;
+      margin-top: -5px; /* Pull up slightly */
+      margin-bottom: 8px;
+  }
+  .cancel-form .error-message.submit-error {
+      margin-top: 5px;
+      font-weight: 500;
+  }
+  
+  .cancel-form .loading-message {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-bottom: 8px;
+  }
+  
+  .cancel-form-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: flex-end; /* Align buttons right */
+  }
+  .cancel-form-buttons .action-button {
+      padding: 6px 12px; /* Slightly smaller form buttons */
+  }
+  
+  /* Note below the table */
+  .note {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  /* --- Responsiveness --- */
+  @media (max-width: 991.98px) {
+    th, td { padding: 12px 10px; } /* Reduce padding */
+  }
+  
+  @media (max-width: 767.98px) {
+    .page-heading { font-size: 1.7rem; }
+    th, td { font-size: 0.9rem; }
+    .action-button { font-size: 0.8rem; padding: 6px 10px; }
+    .actions-cell { white-space: normal; } /* Allow actions to wrap */
+    .cancel-form-buttons { justify-content: flex-start; } /* Stack buttons left */
+  
+     /* Responsive Table - Stacked Layout (Optional but recommended) */
+     /* Hide header */
+     thead {
+        display: none;
+     }
+      /* Make rows look like cards */
+     tbody, tr, td {
+        display: block;
+        width: 100% !important; /* Override default table width */
+     }
+     tr {
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+     }
+     td {
+        text-align: right; /* Align content right */
+        padding-left: 50%; /* Push content right */
+        position: relative; /* For pseudo-element */
+        border-bottom: 1px dotted #eee; /* Lighter internal separator */
+     }
+     td:last-child {
+        border-bottom: none; /* No border on last cell */
+     }
+      /* Add labels using ::before */
+     td::before {
+        content: attr(data-label); /* Get label from data attribute */
+        position: absolute;
+        left: 10px; /* Position label left */
+        width: calc(50% - 20px); /* Calculate label width */
+        padding-right: 10px;
+        font-weight: 600;
+        color: #495057;
+        text-align: left;
+        white-space: nowrap; /* Prevent label wrapping */
+     }
+     td.actions-cell {
+         text-align: left; /* Reset actions cell alignment */
+         padding-left: 10px; /* Reset padding */
+     }
+      td.actions-cell::before {
+         display: none; /* Don't show label for actions */
+     }
+  }

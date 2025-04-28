@@ -1,0 +1,100 @@
+/* --- Volunteer Profile View (Admin) Styles --- */
+
+h2 {
+    text-align: left;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .profile-details-container {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+    margin-top: 15px;
+  }
+  
+  /* Fieldset for grouping */
+  fieldset {
+    border: 1px solid #e0e0e0;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+  }
+  
+  legend {
+    padding: 0 10px; /* Space around legend text */
+    font-weight: 600;
+    color: #0056b3; /* Primary color */
+    font-size: 1.1rem;
+  }
+  
+  /* Display paragraph styling */
+  p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      font-size: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+  }
+  strong {
+      display: inline-block;
+      min-width: 180px; /* Adjust width */
+      color: #495057;
+      font-weight: 600;
+      margin-right: 10px;
+      flex-shrink: 0;
+  }
+  span {
+     color: #333;
+     word-break: break-word;
+  }
+  /* Preserve whitespace for textarea-like fields */
+  span.preserve-whitespace {
+      white-space: pre-wrap;
+  }
+  
+  
+  /* Loading/Error/Not Found Message Styling */
+  .loading-message, .error-message, .no-profile-message {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+  .loading-message { color: #6c757d; background-color: #f8f9fa; border-color: #dee2e6;}
+  .error-message { color: #842029; background-color: #f8d7da; border-color: #f5c2c7;}
+  .no-profile-message { color: #055160; background-color: #cff4fc; border-color: #bee5eb; }
+  
+  
+  /* Action Button Base Style (reuse if global, or scope here) */
+  .action-button {
+      display: inline-flex; align-items: center; gap: 6px; font-weight: 500;
+      line-height: 1.4; color: #fff; text-align: center; text-decoration: none;
+      vertical-align: middle; cursor: pointer; user-select: none;
+      border: 1px solid transparent; padding: 8px 16px; font-size: 0.95rem;
+      border-radius: 5px; transition: all 0.2s ease-in-out;
+  }
+  .action-button:hover:not(:disabled) { opacity: 0.88; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .action-button:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  /* Specific button colors */
+  .action-button.cancel { background-color: #6c757d; border-color: #6c757d; }
+  .action-button.cancel:hover:not(:disabled)  { background-color: #5a6268; border-color: #545b62; }
+  
+  
+  /* --- Responsiveness --- */
+  @media (max-width: 767.98px) {
+      h2 { font-size: 1.6rem; }
+      .profile-details-container { padding: 20px; }
+      fieldset { padding: 10px 15px; }
+      legend { font-size: 1rem; }
+      p { flex-direction: column; gap: 3px; margin-bottom: 15px; }
+      strong { min-width: auto; margin-right: 0; margin-bottom: 4px; }
+  }

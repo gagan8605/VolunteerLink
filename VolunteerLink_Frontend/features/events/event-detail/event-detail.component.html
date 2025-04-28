@@ -1,0 +1,107 @@
+<div class="detail-container">
+  <button (click)="goBack()" class="action-button cancel">← Back</button>
+
+  <div *ngIf="isLoading" class="loading-message">Loading event details...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="event && !isLoading && !error" class="event-content-wrapper"> <!-- Added wrapper -->
+    <h2>{{ event.title }}</h2>
+
+     <!-- Display Image if path exists -->
+     <div *ngIf="event.imagePath" class="event-image-container">
+       <img [src]="'/event-images/' + event.imagePath" [alt]="event.title + ' poster'" class="event-image">
+     </div>
+
+    <fieldset class="details-fieldset"> <!-- Group details -->
+        <legend>Event Information</legend>
+        <p class="event-detail-info">
+            <i class="icon-placeholder bi bi-calendar-event"></i>
+            <strong>Date & Time:</strong>
+            <span>{{ event.date | date:'fullDate' }} at {{ event.date | date:'shortTime' }}</span>
+        </p>
+        <p class="event-detail-info">
+            <i class="icon-placeholder bi bi-geo-alt-fill"></i>
+            <strong>Location:</strong>
+            <span>{{ event.location || 'To be determined' }}</span>
+        </p>
+        <!-- Use event.stipend and INR currency -->
+        <p class="event-detail-info stipend">
+            <i class="icon-placeholder bi bi-cash-coin"></i>
+            <strong>Compensation:</strong>
+            <span>{{ (event.salary && event.salary > 0) ? (event.salary| currency:'INR':'symbol':'1.0-0') : 'Voluntary' }}</span>
+        </p>
+    </fieldset>
+
+    <fieldset class="details-fieldset">
+        <legend>Description</legend>
+        <p class="event-description" [innerHTML]="event.description?.replace('\n', '<br>') || 'No description provided.'"></p>
+    </fieldset>
+
+    <!-- Organizer Info - Conditionally display -->
+    <fieldset class="details-fieldset" *ngIf="event.createdById">
+        <legend>Organizer Information</legend>
+        <p class="event-detail-info">
+             <i class="icon-placeholder bi bi-person-circle"></i>
+            <strong>Organized by:</strong>
+            <!-- Button to trigger viewing organizer profile -->
+            <button type="button" class="link-button" (click)="viewOrganizerProfile(event.createdById)">
+                 {{ event.createdByName || 'View Organizer' }}
+            </button>
+            <!-- Optionally display organizer details fetched separately -->
+             <span *ngIf="organizer && organizer.fullName"> ({{ organizer.fullName }})</span>
+        </p>
+         <p class="event-detail-info">
+            <i class="icon-placeholder bi bi-telephone-fill"></i>
+            <strong>Contact Phone:</strong>
+            <span *ngIf="event.organizerPhoneNumber">
+                <a [href]="'tel:'+event.organizerPhoneNumber">{{ event.organizerPhoneNumber }}</a>
+            </span>
+             <span *ngIf="!event.organizerPhoneNumber">-</span>
+        </p>
+        <!-- Add more organizer details here if loaded into the 'organizer' object -->
+    </fieldset>
+
+
+    <!-- Action Buttons / Messages Section -->
+     <div class="actions">
+            <!-- Apply Button - NOW OPENS CONSENT MODAL -->
+            <button
+                *ngIf="canApply(event)"
+                (click)="openConsentModal()" 
+                class="action-button apply-button"
+                [disabled]="signupLoading"> <!-- Disabled only by loading flag -->
+                 Apply for this Event
+            </button>
+
+            <!-- Action Feedback -->
+             <div *ngIf="signupLoading" class="action-feedback loading">Applying...</div>
+             <div *ngIf="signupSuccess" class="action-feedback success">Applied Successfully! View in <a routerLink="/app/volunteer/my-events">My Events</a>.</div>
+             <div *ngIf="signupError" class="action-feedback error">{{ signupError }}</div>
+
+            <!-- Login Prompt -->
+             <div *ngIf="!authService.isLoggedIn()">
+                <p class="login-prompt-text"> <!-- Wrap in paragraph for better spacing -->
+                    <a routerLink="/auth/login" [queryParams]="{ returnUrl: '/app/events/' + event.id }" class="action-button login-prompt-button">Login to Apply</a>
+                </p>
+            </div>
+
+            <!-- Info Text for non-appliers -->
+             <span *ngIf="authService.isLoggedIn() && authService.isVolunteer() && !canApply(event) && !signupLoading && !signupSuccess" class="info-text applied-text">
+                 (Already Applied / Event Past)
+             </span>
+     </div>
+  </div><!-- End event-content-wrapper -->
+
+</div> <!-- End detail-container -->
+
+
+<!-- ***** CONSENT MODAL COMPONENT ***** -->
+<!-- Conditionally displayed based on component state -->
+<!-- Uses the component's 'event' property for the title -->
+<app-consent-modal
+    *ngIf="showConsentModal && event"
+    [eventTitle]="event.title"
+    (confirmApply)="handleConsentConfirm()"
+    (cancelConsent)="handleConsentCancel()">
+</app-consent-modal>
+<!-- ***** END CONSENT MODAL ***** -->

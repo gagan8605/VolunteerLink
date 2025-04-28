@@ -1,0 +1,132 @@
+<h2>My Profile</h2>
+
+<div *ngIf="isLoading && !currentUserProfile" class="loading-message">Loading profile...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+<div *ngIf="currentUserProfile && !isLoading">
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+
+     <fieldset>
+        <legend>Account Information</legend>
+         <p><strong>Role:</strong> {{ currentUserProfile.role | titlecase }}</p>
+         <div>
+              <label for="fullName">Full Name: *</label>
+              <input id="fullName" type="text" formControlName="fullName" required>
+              <div *ngIf="profileForm.controls['fullName'].invalid && profileForm.controls['fullName'].touched" class="error-message">Required</div>
+          </div>
+           <div>
+              <label for="email">Login Email: *</label>
+              <input id="email" type="email" formControlName="email" required [readOnly]="true"> <!-- Generally ReadOnly -->
+               <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched" class="error-message">
+                  <span *ngIf="profileForm.controls['email'].errors?.['required']">Required</span>
+                  <span *ngIf="profileForm.controls['email'].errors?.['email']">Invalid email format</span>
+              </div>
+               <small *ngIf="profileForm.controls['email'].disabled"> (Cannot be changed)</small>
+          </div>
+     </fieldset>
+
+     <fieldset>
+            <legend>General Profile Information</legend>
+            <div>
+              <label for="phoneNumber">Phone Number:</label>
+              <input id="phoneNumber" type="tel" formControlName="phoneNumber">
+            </div>
+             <div>
+              <label for="dateOfBirth">Date of Birth:</label>
+              <input id="dateOfBirth" type="date" formControlName="dateOfBirth">
+            </div>
+             <div>
+              <label for="gender">Gender:</label>
+              <select id="gender" formControlName="gender">
+                <option [ngValue]="null">Select...</option>
+                <option *ngFor="let genderOption of genders" [value]="genderOption">{{ genderOption | titlecase }}</option>
+              </select>
+            </div>
+             <div>
+              <label for="address">Address:</label>
+              <textarea id="address" formControlName="address" rows="3"></textarea>
+            </div>
+             <div>
+              <label for="location">Location (City, State):</label>
+              <input id="location" type="text" formControlName="location">
+            </div>
+             <div>
+              <label for="generalOrgType">Type (Individual, Non-Profit, etc.):</label>
+              <input id="generalOrgType" type="text" formControlName="generalOrgType">
+            </div>
+       </fieldset>
+
+      <fieldset *ngIf="currentUserProfile.role === Role.Admin">
+          <legend>Admin Details</legend>
+           <div>
+              <label for="designation">Designation/Title:</label>
+              <input id="designation" type="text" formControlName="designation">
+          </div>
+          <div>
+              <label for="organizationName">Organization Name:</label>
+              <input id="organizationName" type="text" formControlName="organizationName">
+          </div>
+          <div>
+              <label for="yearsOfExperience">Years of Experience:</label>
+              <input id="yearsOfExperience" type="number" formControlName="yearsOfExperience" min="0">
+              <div *ngIf="profileForm.controls['yearsOfExperience'].invalid && profileForm.controls['yearsOfExperience'].touched" class="error-message">Must be 0 or more</div>
+          </div>
+          <div>
+              <label for="workEmail">Work Email:</label>
+              <input id="workEmail" type="email" formControlName="workEmail" [readOnly]="true"> <!-- Example ReadOnly -->
+              <div *ngIf="profileForm.controls['workEmail'].invalid && profileForm.controls['workEmail'].touched" class="error-message">Invalid email format</div>
+               <small *ngIf="profileForm.controls['workEmail'].disabled"> (Cannot be changed easily)</small>
+          </div>
+           <div>
+              <label for="officeLocation">Office Location:</label>
+              <input id="officeLocation" type="text" formControlName="officeLocation">
+          </div>
+      </fieldset>
+
+       <fieldset *ngIf="currentUserProfile.role === Role.Volunteer">
+           <legend>Volunteer Details</legend>
+           <div>
+              <label for="areaOfInterest">Area(s) of Interest:</label>
+              <textarea id="areaOfInterest" formControlName="areaOfInterest" rows="3"></textarea>
+          </div>
+           <div>
+              <label for="availability">Availability (e.g., Weekends):</label>
+              <input id="availability" type="text" formControlName="availability">
+          </div>
+           <div>
+              <label for="emergencyContactNumber">Emergency Contact Number:</label>
+              <input id="emergencyContactNumber" type="tel" formControlName="emergencyContactNumber">
+          </div>
+           <div>
+              <label for="skillsCertifications">Skills / Certifications:</label>
+              <textarea id="skillsCertifications" formControlName="skillsCertifications" rows="3"></textarea>
+          </div>
+           <div>
+              <label for="previousExperience">Previous Volunteer Experience:</label>
+              <textarea id="previousExperience" formControlName="previousExperience" rows="3"></textarea>
+          </div>
+           <div>
+             <label>
+                 <input type="checkbox" formControlName="willingToRelocate"> Willing to Relocate for Opportunities?
+             </label>
+           </div>
+            <div>
+              <label for="preferredLocation">Preferred Work Location:</label>
+              <input id="preferredLocation" type="text" formControlName="preferredLocation">
+          </div>
+       </fieldset>
+
+      <div class="profile-actions">
+            <button *ngIf="!isEditing" type="button" (click)="enableEdit()" class="action-button edit">Edit Profile</button>
+            <ng-container *ngIf="isEditing">
+                 <button type="submit" [disabled]="profileForm.invalid || isLoading" class="action-button approve">
+                     {{ isLoading ? 'Saving...' : 'Save Changes' }}
+                 </button>
+                 <button type="button" (click)="cancelEdit()" class="action-button cancel" [disabled]="isLoading">Cancel</button>
+            </ng-container>
+        </div>
+        <div *ngIf="isLoading && isEditing" class="loading-message">Saving profile...</div>
+  </form>
+</div>

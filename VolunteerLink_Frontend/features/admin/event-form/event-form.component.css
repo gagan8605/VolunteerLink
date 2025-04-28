@@ -1,0 +1,9 @@
+.form-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex; /* Optional: align buttons */
+    gap: 10px; /* Optional: space between buttons */
+}
+
+/* Add any other specific styles for the event form */

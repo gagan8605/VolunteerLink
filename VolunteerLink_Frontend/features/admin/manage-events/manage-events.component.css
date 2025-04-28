@@ -1,0 +1,192 @@
+/* --- Manage Events Component Styles --- */
+
+/* Container and Heading */
+:host {
+    display: block; /* Ensure component takes block space */
+    padding: 20px 0; /* Add some vertical padding */
+  }
+  
+  h2 {
+    text-align: left; /* Align heading left */
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #eee; /* Subtle separator */
+    padding-bottom: 10px;
+  }
+  
+  /* Add Event Button Container */
+  .add-event-button-container {
+    text-align: right; /* Position button to the right */
+    margin-bottom: 20px;
+  }
+  
+  /* General Action Button Styles (Reused) */
+  .action-button {
+      display: inline-flex; /* Use flex for icon alignment */
+      align-items: center;
+      gap: 6px; /* Space between icon and text */
+      font-weight: 500;
+      line-height: 1.4;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      background-color: #007bff; /* Default */
+      border: 1px solid transparent;
+      padding: 8px 14px; /* Slightly smaller padding */
+      font-size: 0.9rem;
+      border-radius: 5px; /* Standard border radius */
+      transition: all 0.2s ease-in-out;
+      margin: 3px; /* Small margins for spacing */
+      white-space: nowrap; /* Prevent button text wrapping */
+  }
+  .action-button i {
+      line-height: 1; /* Align icons better */
+  }
+  .action-button:hover:not(:disabled) {
+      opacity: 0.85;
+      transform: translateY(-1px); /* Slight lift on hover */
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  }
+  .action-button:active:not(:disabled) {
+      transform: translateY(0px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .action-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: #adb5bd;
+      border-color: #adb5bd;
+      box-shadow: none;
+  }
+  
+  /* Specific Button Colors */
+  .action-button.approve { background-color: #198754; border-color: #198754; }
+  .action-button.view    { background-color: #0dcaf0; border-color: #0dcaf0; color: #000; } /* Info/Cyan */
+  .action-button.edit    { background-color: #ffc107; border-color: #ffc107; color: #000; } /* Warning/Yellow */
+  .action-button.delete  { background-color: #dc3545; border-color: #dc3545; } /* Danger/Red */
+  
+  .action-button.approve:hover:not(:disabled) { background-color: #157347; border-color: #146c43; }
+  .action-button.view:hover:not(:disabled)    { background-color: #0baccc; border-color: #0aa0bf; }
+  .action-button.edit:hover:not(:disabled)    { background-color: #e0a800; border-color: #d39e00; }
+  .action-button.delete:hover:not(:disabled)  { background-color: #c82333; border-color: #bd2130; }
+  
+  /* Loading/Error Message Styles */
+  .loading-message, .error-message {
+    text-align: center;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+  }
+  .loading-message { color: #6c757d; background-color: #f8f9fa; border: 1px solid #dee2e6;}
+  .error-message { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7;}
+  .error-message.action-error { /* Specific error below buttons */
+      text-align: left;
+      font-size: 0.85rem;
+      padding: 4px 0 0 0; /* Minimal padding, only top margin */
+      margin: 5px 0 0 0;
+      background-color: transparent;
+      border: none;
+      color: #dc3545; /* Match delete button color */
+      width: 100%; /* Ensure it takes width in flex container */
+  }
+  
+  /* Table Wrapper for Responsiveness */
+  .table-wrapper {
+    overflow-x: auto; /* Enable horizontal scroll on small screens */
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px; /* Prevent excessive squeezing on small screens */
+  }
+  
+  th, td {
+    padding: 12px 15px; /* Consistent padding */
+    text-align: left;
+    border-bottom: 1px solid #e9ecef; /* Light row separator */
+    vertical-align: middle; /* Align content vertically */
+  }
+  
+  /* Table Header */
+  thead {
+      background-color: #f8f9fa; /* Light header background */
+  }
+  th {
+    font-weight: 600; /* Bolder header text */
+    color: #495057;
+    font-size: 0.9rem;
+    text-transform: uppercase; /* Uppercase headers */
+    letter-spacing: 0.5px;
+  }
+  
+  /* Table Body */
+  tbody tr {
+    transition: background-color 0.2s ease; /* Smooth hover */
+  }
+  tbody tr:nth-child(even) {
+    background-color: #fdfdfd; /* Very subtle striping, optional */
+  }
+  tbody tr:hover {
+    background-color: #f1f5f9; /* Light blue/gray hover */
+  }
+  td {
+    color: #333;
+    font-size: 0.95rem;
+  }
+  td a { /* Style link within table */
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+  }
+  td a:hover {
+      text-decoration: underline;
+      color: #0056b3;
+  }
+  
+  /* Actions Cell Specifics */
+  td.actions-cell {
+    text-align: right; /* Align buttons to the right */
+    white-space: nowrap; /* Prevent actions wrapping initially */
+  }
+  
+  
+  /* No Events Message */
+  .no-events-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  /* --- Responsiveness --- */
+  @media (max-width: 767.98px) {
+    h2 { font-size: 1.6rem; }
+    .add-event-button-container { text-align: left; } /* Stack button left on mobile */
+    th, td { padding: 10px 8px; font-size: 0.9rem; } /* Reduce padding on cells */
+    .action-button { padding: 6px 10px; font-size: 0.85rem; gap: 4px;} /* Smaller buttons */
+    td.actions-cell {
+        text-align: left; /* Align buttons left on small screens */
+        white-space: normal; /* Allow button wrapping */
+         /* Optional: Use Flexbox for better button control */
+        /* display: flex;
+        flex-wrap: wrap;
+        gap: 5px; */
+    }
+  
+  }

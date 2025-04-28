@@ -1,0 +1,161 @@
+<h2>Register</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <fieldset>
+      <legend>Account Information *</legend>
+       <div>
+        <label for="role">Register as: *</label>
+        <select id="role" formControlName="role" required>
+          <option *ngFor="let roleOption of roles" [value]="roleOption">{{ roleOption | titlecase }}</option>
+        </select>
+         <div *ngIf="registerForm.controls['role'].invalid && registerForm.controls['role'].touched" class="error-message">Required</div>
+      </div>
+      <div>
+        <label for="fullName">Full Name: *</label>
+        <input id="fullName" type="text" formControlName="fullName" required>
+         <div *ngIf="registerForm.controls['fullName'].invalid && registerForm.controls['fullName'].touched" class="error-message">Required</div>
+      </div>
+      <div>
+        <label for="email">Login Email: *</label>
+        <input id="email" type="email" formControlName="email" required>
+         <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="error-message">
+            <span *ngIf="registerForm.controls['email'].errors?.['required']">Required</span>
+             <span *ngIf="registerForm.controls['email'].errors?.['email']">Invalid email format</span>
+        </div>
+      </div>
+      <div>
+        <label for="password">Password: *</label>
+        <input id="password" type="password" formControlName="password" required minlength="6">
+         <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="error-message">
+            <span *ngIf="registerForm.controls['password'].errors?.['required']">Required</span>
+            <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Min 6 characters</span>
+        </div>
+      </div>
+       <div>
+        <label for="confirmPassword">Confirm Password: *</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" required>
+         <div *ngIf="registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].touched" class="error-message">
+             <span *ngIf="registerForm.controls['confirmPassword'].errors?.['required']">Required</span>
+        </div>
+         <div *ngIf="registerForm.hasError('mismatch') && (registerForm.controls['confirmPassword'].touched || registerForm.controls['password'].touched)" class="error-message">
+            Passwords do not match
+        </div>
+      </div>
+  </fieldset>
+
+   <fieldset>
+        <legend>General Profile Information (Optional)</legend>
+        <div>
+          <label for="phoneNumber">Phone Number:</label>
+          <input id="phoneNumber" type="tel" formControlName="phoneNumber">
+        </div>
+         <div>
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input id="dateOfBirth" type="date" formControlName="dateOfBirth">
+        </div>
+         <div>
+          <label for="gender">Gender:</label>
+          <select id="gender" formControlName="gender">
+            <option [ngValue]="null">Select...</option>
+            <option *ngFor="let genderOption of genders" [value]="genderOption">{{ genderOption | titlecase }}</option>
+          </select>
+        </div>
+         <div>
+          <label for="address">Address:</label>
+          <textarea id="address" formControlName="address" rows="3"></textarea>
+        </div>
+         <div>
+          <label for="location">Location (City, State):</label>
+          <input id="location" type="text" formControlName="location">
+        </div>
+         <div>
+          <label for="generalOrgType">Type (Individual, Non-Profit, etc.):</label>
+          <input id="generalOrgType" type="text" formControlName="generalOrgType">
+        </div>
+   </fieldset>
+
+  <fieldset *ngIf="selectedRole === 'ADMIN'">
+    <legend>Admin Details</legend>
+    <div>
+      <label for="designation">Designation/Title:</label>
+      <input id="designation" type="text" formControlName="designation">
+    </div>
+    <div>
+      <label for="organizationName">Organization Name:</label>
+      <input id="organizationName" type="text" formControlName="organizationName">
+        <div *ngIf="registerForm.controls['organizationName'].invalid && registerForm.controls['organizationName'].touched" class="error-message">Required</div>
+    </div>
+    <div>
+      <label for="yearsOfExperience">Years of Experience:</label>
+      <input id="yearsOfExperience" type="number" formControlName="yearsOfExperience" min="0">
+       <div *ngIf="registerForm.controls['yearsOfExperience'].invalid && registerForm.controls['yearsOfExperience'].touched" class="error-message">
+            Must be 0 or more
+       </div>
+    </div>
+    <div>
+      <label for="workEmail">Work Email:</label>
+      <input id="workEmail" type="email" formControlName="workEmail">
+        <div *ngIf="registerForm.controls['workEmail'].invalid && registerForm.controls['workEmail'].touched" class="error-message">
+            Invalid email format
+        </div>
+    </div>
+     <div>
+      <label for="officeLocation">Office Location:</label>
+      <input id="officeLocation" type="text" formControlName="officeLocation">
+    </div>
+  </fieldset>
+
+  <fieldset *ngIf="selectedRole === 'VOLUNTEER'">
+     <legend>Volunteer Details</legend>
+     <div>
+      <label for="areaOfInterest">Area(s) of Interest: <span *ngIf="registerForm.get('areaOfInterest')?.hasError('required')">*</span></label>
+      <textarea id="areaOfInterest" formControlName="areaOfInterest" rows="3"></textarea>
+      <div *ngIf="registerForm.controls['areaOfInterest'].invalid && registerForm.controls['areaOfInterest'].touched" class="error-message">Required</div>
+    </div>
+     <div>
+      <label for="availability">Availability (e.g., Weekends):</label>
+      <input id="availability" type="text" formControlName="availability">
+    </div>
+     <div>
+      <label for="emergencyContactNumber">Emergency Contact Number:</label>
+      <input id="emergencyContactNumber" type="tel" formControlName="emergencyContactNumber">
+    </div>
+     <div>
+      <label for="skillsCertifications">Skills / Certifications:</label>
+      <textarea id="skillsCertifications" formControlName="skillsCertifications" rows="3"></textarea>
+    </div>
+     <div>
+      <label for="previousExperience">Previous Volunteer Experience:</label>
+      <textarea id="previousExperience" formControlName="previousExperience" rows="3"></textarea>
+    </div>
+     <div>
+       <label>
+           <input type="checkbox" formControlName="willingToRelocate"> Willing to Relocate for Opportunities?
+       </label>
+     </div>
+      <div>
+      <label for="preferredLocation">Preferred Work Location:</label>
+      <input id="preferredLocation" type="text" formControlName="preferredLocation">
+    </div>
+  </fieldset>
+
+  <div *ngIf="errorMessage" class="error-message submit-error">
+    {{ errorMessage }}
+  </div>
+   <div *ngIf="successMessage" class="success-message submit-success">
+    {{ successMessage }} Go to <a routerLink="/auth/login">Login</a>.
+  </div>
+
+  <div *ngIf="isLoading" class="loading-message">
+    Registering...
+  </div>
+
+  <div class="form-actions">
+      <button type="submit" [disabled]="registerForm.invalid || isLoading">
+        Register
+      </button>
+  </div>
+</form>
+
+<p class="switch-link">Already have an account? <a routerLink="/auth/login">Login here</a></p>

@@ -1,0 +1,40 @@
+<h2>Download Event Participation Reports (CSV)</h2>
+
+<div *ngIf="isLoading" class="loading-message">Loading your events...</div>
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div class="table-wrapper" *ngIf="!isLoading && !error">
+    <div *ngIf="adminEvents.length > 0; else noEvents">
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Title</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let event of adminEvents">
+                    <td><a [routerLink]="['/app/events', event.id]">{{ event.title }}</a></td>
+                    <td>{{ event.date | date:'medium' }}</td>
+                    <td class="actions-cell">
+                        <!-- Download Button -->
+                        <button (click)="downloadReport(event.id, event.title)"
+                                class="action-button download-button">
+                                
+                             <i class="icon-placeholder bi bi-cloud-download-fill"></i>
+                             {{ downloadLoading[event.id!] ? 'Downloading...' : 'Download Report' }}
+                        </button>
+                        <!-- Error message specific to download for this row -->
+                         <div *ngIf="downloadError[event.id!]" class="error-message action-error">{{ downloadError[event.id!] }}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noEvents>
+         <div class="no-events-found"> <!-- Use consistent class -->
+            <p>You haven't created any events yet to generate reports for.</p>
+        </div>
+    </ng-template>
+</div>

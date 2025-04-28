@@ -1,0 +1,125 @@
+<!-- HomeComponent uses the structure provided by LayoutComponent's router-outlet -->
+
+<!-- About Section -->
+<section class="home-about content-section">
+    <div class="layout-limiter home-about-content">
+      <h2>Welcome to VolunteerLink!</h2>
+      <p>
+        Our platform connects passionate volunteers with organizations and events needing support.
+        Whether you're looking to give back to your community or find dedicated help for your cause,
+        VolunteerLink makes the connection seamless.
+      </p>
+       <div class="home-actions" *ngIf="!authService.isLoggedIn()">
+        <a [routerLink]="['/auth/register']" [queryParams]="{ role: 'Admin' }" class="action-button primary-action">
+          Register as Organizer
+        </a>
+        <a [routerLink]="['/auth/register']" [queryParams]="{ role: 'Volunteer' }" class="action-button secondary-action">
+          Register as Volunteer
+        </a>
+      </div>
+       <div class="home-actions" *ngIf="authService.isLoggedIn()">
+           <a [routerLink]="['/app/events']" class="action-button primary-action">
+               Browse All Events
+           </a>
+       </div>
+    </div>
+  </section>
+  
+  <!-- Upcoming Events Preview -->
+  <section class="home-events content-section bg-pale">
+    <div class="layout-limiter">
+      <h2 class="text-center section-main-title">Upcoming Events</h2>
+      <div *ngIf="isLoadingEvents" class="loading-message text-center">Loading events...</div>
+      <div *ngIf="errorLoadingEvents" class="error-message text-center">{{ errorLoadingEvents }}</div>
+  
+      <div class="event-preview-grid" *ngIf="!isLoadingEvents && !errorLoadingEvents">
+        <div *ngFor="let event of upcomingEventsPreview" class="event-preview-card">
+           <img *ngIf="event.imagePath" [src]="'/event-images/' + event.imagePath" [alt]="event.title" class="event-preview-image">
+           <div class="event-preview-content">
+              <h4 class="event-preview-title"><a [routerLink]="['/app/events', event.id]">{{ event.title }}</a></h4>
+              <p class="event-preview-date"><i class="icon-placeholder bi bi-calendar3"></i> {{ event.date | date:'mediumDate' }} at {{ event.date | date:'shortTime' }}</p>
+              <p class="event-preview-location"><i class="icon-placeholder bi bi-geo-alt-fill"></i> {{ event.location || 'TBD' }}</p>
+              <a [routerLink]="['/app/events', event.id]" class="action-button tertiary-action">View Details</a>
+           </div>
+        </div>
+        <div *ngIf="upcomingEventsPreview.length === 0" class="no-events-message">
+          <p>No upcoming events posted right now. Check back soon!</p>
+        </div>
+      </div>
+  
+       <div class="all-events-link text-center" *ngIf="upcomingEventsPreview.length > 0">
+        <a [routerLink]="['/app/events']" class="action-button outline-button">View All Upcoming Events</a>
+      </div>
+  
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <!-- Contact Section -->
+<section class="home-contact content-section">
+  <div class="layout-limiter text-center">
+    <h2 class="section-main-title">Get In Touch</h2>
+    <p class="section-tagline">Have questions? We'd love to hear from you.</p>
+    <p>
+      For support or inquiries, please reach out to us at: <br>
+      <a href="mailto:support&#64;volunteerlink.example.com">support&#64;volunteerlink.gmail.com</a>
+    </p>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="layout-limiter">
+    <form (ngSubmit)="onSubmitContactForm()" #contactForm="ngForm" class="contact-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="contactFormData.name"
+          #name="ngModel"
+        />
+        <div *ngIf="name.invalid && name.touched" class="error-message">
+          Name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="form-control"
+          required
+          [(ngModel)]="contactFormData.phone"
+          #phone="ngModel"
+        />
+        <div *ngIf="phone.invalid && phone.touched" class="error-message">
+          Phone number is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          class="form-control"
+          rows="4"
+          required
+          [(ngModel)]="contactFormData.message"
+          #message="ngModel"
+        ></textarea>
+        <div *ngIf="message.invalid && message.touched" class="error-message">
+          Message is required.
+        </div>
+      </div>
+
+      <button type="submit" class="action-button primary-action" [disabled]="contactForm.invalid">
+        Submit
+      </button>
+    </form>
+  </div>
+</section>
