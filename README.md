@@ -1,6 +1,8 @@
 # VolunteerLink - Connecting Volunteers & Organizers
 
-![image](https://github.com/user-attachments/assets/5fcca3df-b120-40b7-a592-984bed6a513b)
+
+![image](https://github.com/user-attachments/assets/0e7cc3bb-245c-483b-80a3-949790f4b01d)
+
 
 VolunteerLink is a full-stack web application designed to streamline the process of volunteer management. It provides a platform for non-profits and event organizers to create volunteering opportunities and for volunteers to find and sign up for events that match their interests and availability.
 
